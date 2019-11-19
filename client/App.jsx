@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from axios;
+import { host, key } from "../apiHelpers/apikeys.js";
 
 export default class App extends Component {
   constructor(props) {
@@ -16,6 +18,7 @@ export default class App extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
     //extract ingredients API here
   }
   render() {
