@@ -1,9 +1,17 @@
-import axios from Axios
-import {apiHost, apiKey} from './apikeys.js'
+import axios from "axios";
+import apiKey from "./apikeys.js";
 
-let headers: {
-    "x-rapidapi-host": apiHost,
-    "x-rapidapi-key": apiKey
-}
+let extractIngredients = recipeLink =>
+  axios
+    .get(
+      `https://api.spoonacular.com/recipes/extract?url=${recipeLink}&apiKey=${apiKey}`
+    )
+    .then(({ data }) => {
+      let ingredientList = data.extendedIngredients;
+      let ingredientStrings = ingredientList.map(ingredient => {
+        return ingredient.original;
+      });
+      return ingredientStrings;
+    });
 
-let extractIngredients = (recipeLink) => axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/extract?url=${recipeLink}`)
+export default extractIngredients;

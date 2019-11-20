@@ -62,3 +62,6 @@ typings/
 
 #api keys
 /apiHelpers/apikeys.js
+
+#bundle
+/public/bundle.js
