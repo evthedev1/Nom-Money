@@ -7,11 +7,15 @@ let extractIngredients = recipeLink =>
       `https://api.spoonacular.com/recipes/extract?url=${recipeLink}&apiKey=${apiKey}`
     )
     .then(({ data }) => {
-      let ingredientList = data.extendedIngredients;
-      let ingredientStrings = ingredientList.map(ingredient => {
-        return ingredient.original;
-      });
-      return ingredientStrings;
-    });
+      // let ingredientList = data.extendedIngredients;
+      // let ingredientStrings = ingredientList.map(ingredient => {
+      //   return ingredient.original;
+      // });
+      // return ingredientStrings;
+      return data.extendedIngredients;
+    })
+    .catch(err=>{
+      console.log(err)
+    })
 
 export default extractIngredients;

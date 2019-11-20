@@ -7,7 +7,8 @@ export default class App extends Component {
     super(props);
     this.state = {
       ingredients: [],
-      recipe: ""
+      recipe: "",
+      ownedIngredients: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,7 +39,6 @@ export default class App extends Component {
         </form>
         {this.state.ingredients.map(ingredient => {
           return <Ingredient ingredient={ingredient} />;
-          // console.log(ingredient);
         })}
       </div>
     );
