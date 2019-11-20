@@ -9,7 +9,7 @@ export default class App extends Component {
     this.state = {
       ingredients: [],
       recipe: "",
-      ownedIngredients: [],
+      ingredientsToBuy: [],
       recipeTotal: 0
     };
     this.handleChange = this.handleChange.bind(this);
@@ -28,6 +28,9 @@ export default class App extends Component {
         getIngredientPrice(ingredient.original).then(data => {
           formatIngredients.push(data);
           this.setState({ ingredients: this.state.ingredients.concat(data) });
+          this.setState({
+            ingredientsToBuy: this.state.ingredients.concat(data)
+          });
           this.setState({
             recipeTotal: this.state.recipeTotal + data.estimatedCost.value
           });
@@ -50,10 +53,10 @@ export default class App extends Component {
           <input type="submit" value="Submit" />
         </form>
         {this.state.ingredients.map(ingredient => {
-          return <Ingredient ingredient={ingredient} />;
+          return <Ingredient checked={1 < 0} ingredient={ingredient} />;
         })}
         <div className="ingredient-name">
-          ${(this.state.recipeTotal / 100).toFixed(2)} Total
+          Total &nbsp;&nbsp; ${(this.state.recipeTotal / 100).toFixed(2)}
         </div>
       </div>
     );
