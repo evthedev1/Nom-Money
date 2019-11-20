@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import extractIngredients from "../apiHelpers/extractIngredients.js";
-import axios from "axios";
+import Ingredient from "./Components/Ingredient.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ export default class App extends Component {
   handleSubmit(event) {
     event.preventDefault();
     extractIngredients(this.state.recipe).then(data => {
-      console.log(data);
+      this.setState({ ingredients: data });
     });
   }
   render() {
@@ -36,6 +36,10 @@ export default class App extends Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
+        {this.state.ingredients.map(ingredient => {
+          return <Ingredient ingredient={ingredient} />;
+          // console.log(ingredient);
+        })}
       </div>
     );
   }
