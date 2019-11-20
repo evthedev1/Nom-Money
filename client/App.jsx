@@ -9,11 +9,13 @@ export default class App extends Component {
     this.state = {
       ingredients: [],
       recipe: "",
-      ownedIngredients: []
+      ownedIngredients: [],
+      recipeTotal: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   handleChange(event) {
     this.setState({ recipe: event.target.value });
   }
@@ -23,15 +25,14 @@ export default class App extends Component {
     extractIngredients(this.state.recipe).then(data => {
       let formatIngredients = [];
       data.forEach(ingredient => {
-        console.log("original", ingredient.original);
         getIngredientPrice(ingredient.original).then(data => {
-          console.log("data", data);
           formatIngredients.push(data);
           this.setState({ ingredients: this.state.ingredients.concat(data) });
+          this.setState({
+            recipeTotal: this.state.recipeTotal + data.estimatedCost.value
+          });
         });
       });
-      // console.log("format ing", formatIngredients);
-      // this.setState({ ingredients: data });
     });
   }
   render() {
@@ -51,6 +52,7 @@ export default class App extends Component {
         {this.state.ingredients.map(ingredient => {
           return <Ingredient ingredient={ingredient} />;
         })}
+        ${(this.state.recipeTotal / 100).toFixed(2)} Total
       </div>
     );
   }

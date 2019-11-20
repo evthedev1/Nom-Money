@@ -20,9 +20,6 @@ let getIngredientPrice = ingredient => {
       config
     )
     .then(({ data }) => {
-      console.log("ingredient", data[0]);
-      // console.log("ingredient", data[0].estimatedCost.value);
-      // return data[0].estimatedCost.value;
       return data[0];
     })
     .catch(err => {
