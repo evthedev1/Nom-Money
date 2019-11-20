@@ -7,8 +7,10 @@ export default function Ingredient({ ingredient }) {
 
   return (
     <div>
-      ${(ingredient.estimatedCost.value / 100).toFixed(2)} &nbsp;&nbsp;
-      <div>{ingredient.original}</div>
+      <div className="ingredient-name">
+        ${(ingredient.estimatedCost.value / 100).toFixed(2)} &nbsp;&nbsp;
+      </div>
+      {ingredient.original}
     </div>
   );
 }

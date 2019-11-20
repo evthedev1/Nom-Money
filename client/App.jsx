@@ -52,7 +52,9 @@ export default class App extends Component {
         {this.state.ingredients.map(ingredient => {
           return <Ingredient ingredient={ingredient} />;
         })}
-        ${(this.state.recipeTotal / 100).toFixed(2)} Total
+        <div className="ingredient-name">
+          ${(this.state.recipeTotal / 100).toFixed(2)} Total
+        </div>
       </div>
     );
   }

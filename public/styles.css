@@ -1,3 +1,7 @@
 #app {
   font-family: "Montserrat", sans-serif;
 }
+
+.ingredient-name {
+  float: right;
+}
