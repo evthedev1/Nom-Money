@@ -1,6 +1,6 @@
 import axios from "axios";
 import apiKey from "./apikeys.js";
-import qs = require("querystring");
+const qs = require("querystring");
 
 let getIngredientPrice = ingredient => {
   const requestBody = {
@@ -13,17 +13,20 @@ let getIngredientPrice = ingredient => {
     }
   };
 
-  axios
+  return axios
     .post(
       `https://api.spoonacular.com/recipes/parseIngredients?apiKey=${apiKey}`,
       qs.stringify(requestBody),
       config
     )
-    .then(({data}) => {
-      console.log('ingredient', data[0].estimatedCost);
+    .then(({ data }) => {
+      console.log("ingredient", data[0]);
+      // console.log("ingredient", data[0].estimatedCost.value);
+      // return data[0].estimatedCost.value;
+      return data[0];
     })
     .catch(err => {
-      // Do somthing
+      console.log(err);
     });
 };
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import extractIngredients from "../apiHelpers/extractIngredients.js";
 import Ingredient from "./Components/Ingredient.jsx";
+import getIngredientPrice from "../apiHelpers/getIngredientPrice.js";
 
 export default class App extends Component {
   constructor(props) {
@@ -20,7 +21,17 @@ export default class App extends Component {
   handleSubmit(event) {
     event.preventDefault();
     extractIngredients(this.state.recipe).then(data => {
-      this.setState({ ingredients: data });
+      let formatIngredients = [];
+      data.forEach(ingredient => {
+        console.log("original", ingredient.original);
+        getIngredientPrice(ingredient.original).then(data => {
+          console.log("data", data);
+          formatIngredients.push(data);
+          this.setState({ ingredients: this.state.ingredients.concat(data) });
+        });
+      });
+      // console.log("format ing", formatIngredients);
+      // this.setState({ ingredients: data });
     });
   }
   render() {

@@ -14,8 +14,8 @@ let extractIngredients = recipeLink =>
       // return ingredientStrings;
       return data.extendedIngredients;
     })
-    .catch(err=>{
-      console.log(err)
-    })
+    .catch(err => {
+      console.log(err);
+    });
 
 export default extractIngredients;
