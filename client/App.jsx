@@ -35,10 +35,6 @@ export default class App extends Component {
       data.forEach(ingredient => {
         getIngredientPrice(ingredient.original).then(data => {
           this.setState({ ingredients: this.state.ingredients.concat(data) });
-          // this.setState({
-          //   checkedIngredients: this.state.checkedIngredients.concat(data)
-          // });
-          console.log("ingredient name", data.name);
           checkedObj[data.name] = true;
           this.setState({
             recipeTotal:
@@ -55,26 +51,12 @@ export default class App extends Component {
     this.setState({ recipeTotal: this.state.recipeTotal + Number(number) });
   }
   toggleCheck(name) {
-    let newCheckObj = {};
-    console.log("name", name);
-
-    for (let key in this.state.checkedIngredients) {
-      console.log("key", key);
-      console.log("name", name);
-      if (key === name) {
-        console.log("bool", this.state.checkedIngredients[key]);
-        console.log("notbool", !this.state.checkedIngredients[key]);
-        newCheckObj[key] = !this.state.checkedIngredients[key];
-        console.log("bool", this.state.checkedIngredients[key]);
-      } else {
-        newCheckObj[key] = this.state.checkedIngredients[key];
-      }
-    }
+    let newCheckObj = this.state.checkedIngredients;
+    newCheckObj[name] = !newCheckObj[name];
+    this.setState({ checkedIngredients: newCheckObj });
   }
   addToShoppingList() {
-    // let toBuy = this.state.ingredients.map(ingredient => {
-    //   return ingredient.name;
-    // });
+
     let toBuy = [];
     for (let key in this.state.checkedIngredients) {
       if (this.state.checkedIngredients[key]) {
