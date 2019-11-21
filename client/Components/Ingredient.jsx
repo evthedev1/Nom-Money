@@ -1,22 +1,3 @@
-// import React from "react";
-
-// export default function Ingredient({ ingredient, checked }) {
-//   return (
-//     <div>
-//       <input
-//         name="ingredient-check"
-//         type="checkbox"
-//         checked="true"
-//         onChange={this.handleInputChange}
-//       />
-//       <div className="ingredient-name">
-//         ${(ingredient.estimatedCost.value / 100).toFixed(2)} &nbsp;&nbsp;
-//       </div>
-//       {ingredient.original}
-//     </div>
-//   );
-// }
-
 import React, { Component } from "react";
 
 export default class Ingredient extends Component {

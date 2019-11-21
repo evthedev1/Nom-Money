@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import extractIngredients from "../apiHelpers/extractIngredients.js";
 import Ingredient from "./Components/Ingredient.jsx";
 import getIngredientPrice from "../apiHelpers/getIngredientPrice.js";
+import TextField from "@material-ui/core/TextField";
 
 export default class App extends Component {
   constructor(props) {
@@ -28,11 +29,7 @@ export default class App extends Component {
         getIngredientPrice(ingredient.original).then(data => {
           formatIngredients.push(data);
           this.setState({ ingredients: this.state.ingredients.concat(data) });
-          console.log(
-            "checking price",
-            Number((data.estimatedCost.value / 100).toFixed(2))
-          );
-          console.log("check state", this.state.recipeTotal);
+
           this.setState({
             recipeTotal:
               this.state.recipeTotal +
@@ -44,9 +41,6 @@ export default class App extends Component {
   }
 
   updateTotal(number) {
-    console.log("what price", number);
-    console.log("current total", this.state.recipeTotal);
-    console.log("new total", Number(number) + Number(this.state.recipeTotal));
     this.setState({ recipeTotal: this.state.recipeTotal + Number(number) });
   }
 
@@ -55,12 +49,16 @@ export default class App extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <label>
-            Recipe Link:
-            <input
-              type="text"
-              value={this.state.recipe}
-              onChange={this.handleChange}
-            />
+            <div>
+              <TextField
+                id="recipe-link"
+                label="Recipe Link Here"
+                margin="normal"
+                type="text"
+                value={this.state.recipe}
+                onChange={this.handleChange}
+              />
+            </div>
           </label>
           <input type="submit" value="Submit" />
         </form>
