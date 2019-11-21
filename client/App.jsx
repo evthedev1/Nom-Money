@@ -55,12 +55,17 @@ export default class App extends Component {
     this.setState({ recipeTotal: this.state.recipeTotal + Number(number) });
   }
   toggleCheck(name) {
-    newCheckObj = {};
+    let newCheckObj = {};
     console.log("name", name);
 
     for (let key in this.state.checkedIngredients) {
+      console.log("key", key);
+      console.log("name", name);
       if (key === name) {
+        console.log("bool", this.state.checkedIngredients[key]);
+        console.log("notbool", !this.state.checkedIngredients[key]);
         newCheckObj[key] = !this.state.checkedIngredients[key];
+        console.log("bool", this.state.checkedIngredients[key]);
       } else {
         newCheckObj[key] = this.state.checkedIngredients[key];
       }
@@ -134,7 +139,9 @@ export default class App extends Component {
           too broke? check out NOM-PANTRY
         </a>
         <br></br>
-        <a href="www.google.com">want to get fit? check out NOM-FIT</a>
+        <a href="https://shielded-coast-92839.herokuapp.com/">
+          want to get fit? check out NOM-FIT
+        </a>
       </div>
     );
   }
