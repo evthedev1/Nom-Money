@@ -4,6 +4,7 @@ import Ingredient from "./Components/Ingredient.jsx";
 import getIngredientPrice from "../apiHelpers/getIngredientPrice.js";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import ItemToBuy from "./Components/ItemToBuy.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -11,11 +12,13 @@ export default class App extends Component {
     this.state = {
       ingredients: [],
       recipe: "",
-      recipeTotal: 0
+      recipeTotal: 0,
+      itemsToBuy: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTotal = this.updateTotal.bind(this);
+    this.addToShoppingList = this.addToShoppingList.bind(this);
   }
 
   handleChange(event) {
@@ -24,13 +27,13 @@ export default class App extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ ingredients: [], recipeTotal: 0 });
     extractIngredients(this.state.recipe).then(data => {
       let formatIngredients = [];
       data.forEach(ingredient => {
         getIngredientPrice(ingredient.original).then(data => {
           formatIngredients.push(data);
           this.setState({ ingredients: this.state.ingredients.concat(data) });
-
           this.setState({
             recipeTotal:
               this.state.recipeTotal +
@@ -44,7 +47,12 @@ export default class App extends Component {
   updateTotal(number) {
     this.setState({ recipeTotal: this.state.recipeTotal + Number(number) });
   }
-
+  addToShoppingList() {
+    let toBuy = this.state.ingredients.map(ingredient => {
+      return ingredient.name;
+    });
+    this.setState({ itemsToBuy: this.state.itemsToBuy.concat(toBuy) });
+  }
   render() {
     return (
       <div>
@@ -67,6 +75,13 @@ export default class App extends Component {
               >
                 Submit
               </Button>
+              <Button
+                className="button-add-shopping"
+                onClick={this.addToShoppingList}
+                variant="outlined"
+              >
+                Add to Shopping List
+              </Button>
             </div>
           </label>
         </form>
@@ -81,6 +96,12 @@ export default class App extends Component {
         <div className="ingredient-name">
           Total &nbsp;&nbsp; ${this.state.recipeTotal.toFixed(2)} per serving
         </div>
+        <br></br>
+        <h3>MY SHOPPING LIST</h3>
+        {this.state.itemsToBuy.map(item => {
+          return <ItemToBuy item={item} />;
+        })}
+        <br></br>
         <br></br>
         <a href="www.google.com">too broke? check out NOM-PANTRY</a>
         <br></br>
