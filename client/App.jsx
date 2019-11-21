@@ -51,7 +51,7 @@ export default class App extends Component {
         <div className="logo">NOM-MONEY</div>
         <form onSubmit={this.handleSubmit}>
           <label>
-            <div>
+            <div className="link-submit">
               <TextField
                 id="recipe-link"
                 label="Recipe Link Here"
@@ -60,7 +60,11 @@ export default class App extends Component {
                 value={this.state.recipe}
                 onChange={this.handleChange}
               />
-              <Button onClick={this.handleSubmit} variant="outlined">
+              <Button
+                className="button-submit"
+                onClick={this.handleSubmit}
+                variant="outlined"
+              >
                 Submit
               </Button>
             </div>
