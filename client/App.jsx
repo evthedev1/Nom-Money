@@ -51,7 +51,7 @@ export default class App extends Component {
     let toBuy = this.state.ingredients.map(ingredient => {
       return ingredient.name;
     });
-    this.setState({ itemsToBuy: toBuy });
+    this.setState({ itemsToBuy: this.state.itemsToBuy.concat(toBuy) });
   }
   render() {
     return (
