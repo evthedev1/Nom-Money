@@ -9,11 +9,11 @@ export default class App extends Component {
     this.state = {
       ingredients: [],
       recipe: "",
-      ingredientsToBuy: [],
       recipeTotal: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateTotal = this.updateTotal.bind(this);
   }
 
   handleChange(event) {
@@ -28,16 +28,28 @@ export default class App extends Component {
         getIngredientPrice(ingredient.original).then(data => {
           formatIngredients.push(data);
           this.setState({ ingredients: this.state.ingredients.concat(data) });
+          console.log(
+            "checking price",
+            Number((data.estimatedCost.value / 100).toFixed(2))
+          );
+          console.log("check state", this.state.recipeTotal);
           this.setState({
-            ingredientsToBuy: this.state.ingredients.concat(data)
-          });
-          this.setState({
-            recipeTotal: this.state.recipeTotal + data.estimatedCost.value
+            recipeTotal:
+              this.state.recipeTotal +
+              Number((data.estimatedCost.value / 100).toFixed(2))
           });
         });
       });
     });
   }
+
+  updateTotal(number) {
+    console.log("what price", number);
+    console.log("current total", this.state.recipeTotal);
+    console.log("new total", Number(number) + this.state.recipeTotal);
+    this.setState({ recipeTotal: this.state.recipeTotal + Number(number) });
+  }
+
   render() {
     return (
       <div>
@@ -53,10 +65,15 @@ export default class App extends Component {
           <input type="submit" value="Submit" />
         </form>
         {this.state.ingredients.map(ingredient => {
-          return <Ingredient checked={1 < 0} ingredient={ingredient} />;
+          return (
+            <Ingredient
+              updateTotal={this.updateTotal}
+              ingredient={ingredient}
+            />
+          );
         })}
         <div className="ingredient-name">
-          Total &nbsp;&nbsp; ${(this.state.recipeTotal / 100).toFixed(2)}
+          Total &nbsp;&nbsp; ${this.state.recipeTotal}
         </div>
       </div>
     );
