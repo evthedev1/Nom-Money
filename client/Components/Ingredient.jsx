@@ -10,11 +10,11 @@ export default class Ingredient extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   handleInputChange() {
-    console.log("current state", this.state.isChecked);
     this.state.isChecked
       ? this.props.updateTotal(-this.state.price)
       : this.props.updateTotal(this.state.price);
     this.setState({ isChecked: !this.state.isChecked });
+    this.props.toggleCheck(this.props.name);
   }
   render() {
     return (

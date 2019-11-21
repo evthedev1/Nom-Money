@@ -13,12 +13,14 @@ export default class App extends Component {
       ingredients: [],
       recipe: "",
       recipeTotal: 0,
-      itemsToBuy: []
+      itemsToBuy: [],
+      checkedIngredients: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTotal = this.updateTotal.bind(this);
     this.addToShoppingList = this.addToShoppingList.bind(this);
+    this.toggleCheck = this.toggleCheck.bind(this);
   }
 
   handleChange(event) {
@@ -29,11 +31,15 @@ export default class App extends Component {
     event.preventDefault();
     this.setState({ ingredients: [], recipeTotal: 0 });
     extractIngredients(this.state.recipe).then(data => {
-      let formatIngredients = [];
+      let checkedObj = {};
       data.forEach(ingredient => {
         getIngredientPrice(ingredient.original).then(data => {
-          formatIngredients.push(data);
           this.setState({ ingredients: this.state.ingredients.concat(data) });
+          // this.setState({
+          //   checkedIngredients: this.state.checkedIngredients.concat(data)
+          // });
+          console.log("ingredient name", data.name);
+          checkedObj[data.name] = true;
           this.setState({
             recipeTotal:
               this.state.recipeTotal +
@@ -41,16 +47,35 @@ export default class App extends Component {
           });
         });
       });
+      this.setState({ checkedIngredients: checkedObj });
     });
   }
 
   updateTotal(number) {
     this.setState({ recipeTotal: this.state.recipeTotal + Number(number) });
   }
+  toggleCheck(name) {
+    newCheckObj = {};
+    console.log("name", name);
+
+    for (let key in this.state.checkedIngredients) {
+      if (key === name) {
+        newCheckObj[key] = !this.state.checkedIngredients[key];
+      } else {
+        newCheckObj[key] = this.state.checkedIngredients[key];
+      }
+    }
+  }
   addToShoppingList() {
-    let toBuy = this.state.ingredients.map(ingredient => {
-      return ingredient.name;
-    });
+    // let toBuy = this.state.ingredients.map(ingredient => {
+    //   return ingredient.name;
+    // });
+    let toBuy = [];
+    for (let key in this.state.checkedIngredients) {
+      if (this.state.checkedIngredients[key]) {
+        toBuy.push(key);
+      }
+    }
     this.setState({ itemsToBuy: this.state.itemsToBuy.concat(toBuy) });
   }
   render() {
@@ -90,6 +115,8 @@ export default class App extends Component {
             <Ingredient
               updateTotal={this.updateTotal}
               ingredient={ingredient}
+              name={ingredient.name}
+              toggleCheck={this.toggleCheck}
             />
           );
         })}
