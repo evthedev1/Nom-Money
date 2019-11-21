@@ -31,8 +31,8 @@ export default class Ingredient extends Component {
   handleInputChange() {
     console.log("current state", this.state.isChecked);
     this.state.isChecked
-      ? this.props.updateTotal(this.state.price)
-      : this.props.updateTotal(-this.state.price);
+      ? this.props.updateTotal(-this.state.price)
+      : this.props.updateTotal(this.state.price);
     this.setState({ isChecked: !this.state.isChecked });
   }
   render() {

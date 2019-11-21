@@ -46,7 +46,7 @@ export default class App extends Component {
   updateTotal(number) {
     console.log("what price", number);
     console.log("current total", this.state.recipeTotal);
-    console.log("new total", Number(number) + this.state.recipeTotal);
+    console.log("new total", Number(number) + Number(this.state.recipeTotal));
     this.setState({ recipeTotal: this.state.recipeTotal + Number(number) });
   }
 
@@ -73,7 +73,7 @@ export default class App extends Component {
           );
         })}
         <div className="ingredient-name">
-          Total &nbsp;&nbsp; ${this.state.recipeTotal}
+          Total &nbsp;&nbsp; ${this.state.recipeTotal.toFixed(2)}
         </div>
       </div>
     );
