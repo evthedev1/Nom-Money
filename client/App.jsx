@@ -4,6 +4,7 @@ import Ingredient from "./Components/Ingredient.jsx";
 import getIngredientPrice from "../apiHelpers/getIngredientPrice.js";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import ItemToBuy from "./Components/ItemToBuy.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ export default class App extends Component {
     this.state = {
       ingredients: [],
       recipe: "",
-      recipeTotal: 0
+      recipeTotal: 0,
+      itemsToBuy: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,7 +33,6 @@ export default class App extends Component {
         getIngredientPrice(ingredient.original).then(data => {
           formatIngredients.push(data);
           this.setState({ ingredients: this.state.ingredients.concat(data) });
-
           this.setState({
             recipeTotal:
               this.state.recipeTotal +
@@ -40,13 +41,17 @@ export default class App extends Component {
         });
       });
     });
-    
   }
 
   updateTotal(number) {
     this.setState({ recipeTotal: this.state.recipeTotal + Number(number) });
   }
-
+  addToShoppingList() {
+    let toBuy = this.state.ingredients.map(ingredient => {
+      return ingredient.name;
+    });
+    this.setState({ itemsToBuy: toBuy });
+  }
   render() {
     return (
       <div>
@@ -91,7 +96,10 @@ export default class App extends Component {
           Total &nbsp;&nbsp; ${this.state.recipeTotal.toFixed(2)} per serving
         </div>
         <br></br>
-        <div>MY SHOPPING LIST</div>
+        <h3>MY SHOPPING LIST</h3>
+        {this.state.itemsToBuy.map(item => {
+          return <ItemToBuy item={item} />;
+        })}
         <br></br>
         <br></br>
         <a href="www.google.com">too broke? check out NOM-PANTRY</a>
