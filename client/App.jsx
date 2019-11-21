@@ -16,6 +16,7 @@ export default class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTotal = this.updateTotal.bind(this);
+    this.addToShoppingList = this.addToShoppingList.bind(this);
   }
 
   handleChange(event) {
@@ -39,6 +40,7 @@ export default class App extends Component {
         });
       });
     });
+    
   }
 
   updateTotal(number) {
@@ -67,6 +69,13 @@ export default class App extends Component {
               >
                 Submit
               </Button>
+              <Button
+                className="button-add-shopping"
+                onClick={this.addToShoppingList}
+                variant="outlined"
+              >
+                Add to Shopping List
+              </Button>
             </div>
           </label>
         </form>
@@ -81,6 +90,9 @@ export default class App extends Component {
         <div className="ingredient-name">
           Total &nbsp;&nbsp; ${this.state.recipeTotal.toFixed(2)} per serving
         </div>
+        <br></br>
+        <div>MY SHOPPING LIST</div>
+        <br></br>
         <br></br>
         <a href="www.google.com">too broke? check out NOM-PANTRY</a>
         <br></br>
