@@ -27,6 +27,7 @@ export default class App extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ ingredients: [], recipeTotal: 0 });
     extractIngredients(this.state.recipe).then(data => {
       let formatIngredients = [];
       data.forEach(ingredient => {
