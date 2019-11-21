@@ -3,6 +3,7 @@ import extractIngredients from "../apiHelpers/extractIngredients.js";
 import Ingredient from "./Components/Ingredient.jsx";
 import getIngredientPrice from "../apiHelpers/getIngredientPrice.js";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 export default class App extends Component {
   constructor(props) {
@@ -59,9 +60,11 @@ export default class App extends Component {
                 value={this.state.recipe}
                 onChange={this.handleChange}
               />
+              <Button onClick={this.handleSubmit} variant="outlined">
+                Submit
+              </Button>
             </div>
           </label>
-          <input type="submit" value="Submit" />
         </form>
         {this.state.ingredients.map(ingredient => {
           return (
@@ -72,8 +75,9 @@ export default class App extends Component {
           );
         })}
         <div className="ingredient-name">
-          Total &nbsp;&nbsp; ${this.state.recipeTotal.toFixed(2)}
+          Total &nbsp;&nbsp; ${this.state.recipeTotal.toFixed(2)} per serving
         </div>
+        <br></br>
         <a href="www.google.com">too broke? check out NOM-PANTRY</a>
         <br></br>
         <a href="www.google.com">want to get fit? check out NOM-FIT</a>
