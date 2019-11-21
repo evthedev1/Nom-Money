@@ -47,6 +47,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <div className="logo">NOM-MONEY</div>
         <form onSubmit={this.handleSubmit}>
           <label>
             <div>
@@ -73,6 +74,9 @@ export default class App extends Component {
         <div className="ingredient-name">
           Total &nbsp;&nbsp; ${this.state.recipeTotal.toFixed(2)}
         </div>
+        <a href="www.google.com">too broke? check out NOM-PANTRY</a>
+        <br></br>
+        <a href="www.google.com">want to get fit? check out NOM-FIT</a>
       </div>
     );
   }
