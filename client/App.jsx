@@ -130,7 +130,9 @@ export default class App extends Component {
         })}
         <br></br>
         <br></br>
-        <a href="www.google.com">too broke? check out NOM-PANTRY</a>
+        <a href="http://ec2-34-216-243-255.us-west-2.compute.amazonaws.com/">
+          too broke? check out NOM-PANTRY
+        </a>
         <br></br>
         <a href="www.google.com">want to get fit? check out NOM-FIT</a>
       </div>
